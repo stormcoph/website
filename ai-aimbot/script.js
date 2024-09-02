@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nodes = [];
     let mouseX = 0;
     let mouseY = 0;
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -33,19 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dy = nodes[i].y - nodes[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 const maxDistance = nodes[i].isCursor || nodes[j].isCursor ? 200 : 150;
-
                 if (distance < maxDistance) {
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
                     ctx.lineTo(nodes[j].x, nodes[j].y);
-                    
-                    // Use a different color for cursor connections
+                   
+                    // Use a yellow to red gradient for cursor connections
                     if (nodes[i].isCursor || nodes[j].isCursor) {
-                        ctx.strokeStyle = `rgba(0, 255, 255, ${1 - distance / maxDistance + 0.1})`;
+                        const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
+                        gradient.addColorStop(0, `rgba(211, 27, 79, ${1 - distance / maxDistance + 0.2})`);
+                        gradient.addColorStop(1, `rgba(250, 155, 41, ${1 - distance / maxDistance + 0.2})`);
+                        ctx.strokeStyle = gradient;
                     } else {
                         ctx.strokeStyle = `rgba(255, 0, 0, ${1 - distance / maxDistance})`;
                     }
-                    
+                   
                     ctx.lineWidth = 0.8;
                     ctx.stroke();
                     ctx.closePath();
