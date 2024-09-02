@@ -133,7 +133,7 @@ canvas {
   transform: translate(-50%, -50%);
   z-index: 3;
   transform: translateX(-50%);
-  width: 34%;
+  width: max(891px); //891px;
   text-align: left;
 }
 
@@ -164,5 +164,5 @@ canvas {
   position: absolute;
   text-align: left;
   width: 100%;
-  margin-top: 25%; // Adjust this value to control space between divider and undertext
+  margin-top: 220px; // Adjust this value to control space between divider and undertext
 }
