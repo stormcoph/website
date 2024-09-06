@@ -6,6 +6,8 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
+  width: 100%;
+  background-color: #0b0c0e;
 }
 
 @function random_range($min, $max) {
@@ -156,13 +158,50 @@ canvas {
   }
 }
 
-.what-is-undertext {
-  color: white;
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem; // Adjust as needed
-  line-height: 1.5;
-  position: absolute;
-  text-align: left;
-  width: 100%;
-  margin-top: 220px; // Adjust this value to control space between divider and undertext
+$base-undertext: (
+  color: white,
+  font-family: "Roboto", sans-serif
+  font-size: 1rem,
+  line-height: 1.5,
+  position: absolute,
+  text-align: left,
+  width: 100%
+);
+
+@mixin height-based-margin($min-height, $max-height, $margin-top) {
+  @media (min-height: #{$min-height}px) and (max-height: #{$max-height}px) {
+    .what-is-undertext {
+      @each $property, $value in $base-undertext {
+        #{$property}: $value;
+      }
+      margin-top: #{$margin-top}px;
+    }
+  }
 }
+
+$height-ranges: (
+  (650, 799, 170),
+  (800, 899, 180),
+  (900, 999, 190),
+  (1000, 1099, 200),
+  (1100, 1199, 210),
+  (1200, 1299, 220),
+  (1300, 1399, 230),
+  (1400, 1499, 240),
+  (1500, 1599, 250),
+  (1600, 1699, 260),
+  (1700, 1799, 270),
+  (1800, 1899, 280),
+  (1900, 1999, 290),
+  (2000, 2099, 300),
+  (2100, 2199, 310),
+  (2200, 2299, 320),
+  (2300, 2399, 330),
+  (2400, 2499, 340)
+);
+
+@each $range in $height-ranges {
+  @include height-based-margin(nth($range, 1), nth($range, 2), nth($range, 3));
+}
+
+
